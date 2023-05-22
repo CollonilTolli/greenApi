@@ -1,0 +1,22 @@
+.header{
+    width: 100%;
+    background-color: var(--color-second-background);
+    display: flex;
+    overflow: hidden;
+    border-radius: 15px 15px 0 0;
+    border: 1px solid var(--color-accent);
+    .chatlist_header{
+        padding: 10px;
+        max-width: 33%;
+        width: 100%;
+        border-right: 1px solid var(--color-accent);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .singlechat_header{
+        max-width: 67%;
+        width: 100%;
+    }
+
+}

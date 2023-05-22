@@ -1,0 +1,69 @@
+.chat {
+  width: 100%;
+  height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-image: url(https://free-png.ru/wp-content/uploads/2021/12/free-png.ru-554.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 0 0 15px 0;
+  border: 1px solid var(--color-accent);
+  border-top: none;
+  border-left: none;
+  .mainChat {
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    .chat {
+      height: fit-content;
+      overflow-y: scroll;
+    }
+    .userMessage,
+    .companionMessage {
+      background-color: var(--color-second-background);
+      max-width: 45%;
+      margin-left: auto;
+      margin-right: 10px;
+      padding: 10px;
+      border-radius: 15px 15px 0 15px;
+      position: relative;
+      margin-bottom: 10px;
+      &::after {
+        content: "";
+        transition: all 0.2s ease;
+        background-color: var(--color-second-background);
+        display: block;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        bottom: -1px;
+        right: 0px;
+        transform: skew(50deg, 8deg);
+      }
+    }
+    .companionMessage {
+      margin-left: 10px;
+      margin-right: auto;
+      border-radius: 15px 15px 15px 0;
+      &::after {
+        bottom: -1px;
+        left: 0px;
+        transform: skew(-50deg, -8deg);
+      }
+    }
+  }
+  input {
+    padding: 10px;
+    font-size: 18px;
+    background-color: var(--color-second-background);
+    color: var(--color-text);
+    border: none;
+    outline: none;
+    border-top: 1px solid var(--color-accent);
+    border-radius: 15px 15px 15px 0;
+  }
+}
