@@ -1,0 +1,41 @@
+.main{
+    min-height: calc(80vh - 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    form{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 25px;
+        padding: 50px;
+        margin: 50px;
+        width: 50%;
+        background-color: var(--color-second-background);
+        label{
+            color: var(--color-text);
+            font-size: 24px;
+        }
+        input, button{
+            color: var(--color-text);
+            font-size: 18px;
+            background-color: var(--color-main-background);
+            padding: 5px 10px;
+            border-radius: 5px;
+            outline: none;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--color-accent);
+        }
+        button{
+            width: 50%;
+            cursor: pointer;
+            &:hover{
+                background-color: var(--color-accent-rgba)
+            }
+        }
+
+    }
+}

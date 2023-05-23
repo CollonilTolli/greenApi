@@ -5,18 +5,24 @@ import css from "./HomePage.module.scss";
 import Header from "../../components/Header/Header";
 import ChatList from "../../components/ChatList/ChatList";
 import ChatMain from "../../components/Chat/ChatMain";
+import { useEffect, useState } from "react";
+
+interface props {
+  openedChat: string;
+  setOpenedChat: any;
+}
 
 const HomePage = () => {
+  const [openedChat, setOpenedChat] = useState("");
+
   return (
-    <div className={cn(css.main, "container")}>
-      <div className="content">
-        <Header />
-        <main className={css.main}>
-            <ChatList/>
-            <ChatMain/>
-        </main>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main className={css.main}>
+        <ChatList openedChat={openedChat} setOpenedChat={setOpenedChat} />
+        <ChatMain openedChat={openedChat} setOpenedChat={setOpenedChat} />
+      </main>
+    </>
   );
 };
 

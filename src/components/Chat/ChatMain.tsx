@@ -1,5 +1,5 @@
 // Modules
-import React from "react";
+import React, { useEffect, useState } from "react";
 // Styles
 import cn from "classnames";
 import css from "./ChatMain.module.scss";
@@ -8,31 +8,66 @@ import { useQuery } from "../../Hooks/useQuery/useQuery";
 //Interface
 interface prop {
   method: string;
+  requestBody?: object;
 }
-const ChatMain = () => {
+interface message {
+  idMessage: string;
+  textMessage: string;
+  type: string;
+}
+const ChatMain = (props: { openedChat: string; setOpenedChat: any }) => {
   const emp: prop = {
-    method: "ReceiveNotification",
+    method: "GetChatHistory",
+    requestBody: {
+      chatId: props.openedChat,
+      count: 40,
+    },
   };
-  const chats = useQuery(emp);
+  const [chat, setChat] = useState([]);
+  const [message, setMessage] = useState(emp);
+  const res = useQuery(emp);
+  useQuery(message);
+
+  useEffect(() => {
+    res && setChat(res.reverse());
+  }, [props.openedChat, res, message]);
+
+  const sandMessage = (e: any) => {
+    e.preventDefault();
+    const mess: prop = {
+      method: "SendMessage",
+      requestBody: {
+        chatId: props.openedChat,
+        message: e.target.message.value,
+      },
+    };
+    setMessage(mess);
+    e.target.message.value = "";
+  };
+
   return (
     <div className={css.chat}>
       <div className={css.mainChat}>
         <div className={css.messages}>
-          <div className={css.userMessage}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam,
-            quas placeat perspiciatis reprehenderit voluptatem amet. Porro magni
-            dolores, eius vitae officiis accusamus. Necessitatibus nemo
-            consectetur, inventore repellat libero velit laudantium.
-          </div>
-          <div className={css.companionMessage}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam,
-            quas placeat perspiciatis reprehenderit voluptatem amet. Porro magni
-            dolores, eius vitae officiis accusamus. Necessitatibus nemo
-            consectetur, inventore repellat libero velit laudantium.
-          </div>
+          {chat &&
+            chat.map((message: message) => (
+              <div
+                key={message.idMessage}
+                className={cn(
+                  message.type === "outgoing"
+                    ? css.userMessage
+                    : css.companionMessage
+                )}
+              >
+                {message.textMessage}
+              </div>
+            ))}
         </div>
       </div>
-      <input type="text" placeholder="New Chat" />
+      <form className={css.input} onSubmit={sandMessage}>
+        <input name="message" type="text" placeholder="Send Message" />
+        <button type="submit">GO!</button>
+      </form>
     </div>
   );
 };

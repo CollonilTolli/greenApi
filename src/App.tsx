@@ -8,10 +8,14 @@ import HomePage from "./Pages/HomePage/HomePage";
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/registred' element={<RegistredPage/>}/>
-        <Route path='/' element={<HomePage/>}/>
-      </Routes>
+      <div className="container">
+        <div className="content">
+          <Routes>
+            <Route path="/registred/" element={<RegistredPage />} />
+            <Route path="/" element={<HomePage />} />
+          </Routes>
+        </div>
+      </div>
     </BrowserRouter>
   );
 };
