@@ -13,33 +13,6 @@
   border-top: none;
   border-left: none;
   position: relative;
-  .notify{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%;
-    background-color: var(--color-second-background);
-    padding: 5px 10px;
-    border-bottom: 1px solid var(--color-accent);
-    animation: notify .2s ease forwards;
-    &_sender{
-      font-size: 16px;
-      margin-bottom: 15px;
-    }
-    &_text{
-      font-size: 18px;
-    }
-  }
-  @keyframes notify {
-    0%{
-      transform: translateY(-100%);
-    }
-    100%{
-      transform: translateY(0)
-    }
-    
-  }
   .mainChat {
     height: 100%;
     overflow: hidden;
@@ -60,6 +33,7 @@
       border-radius: 15px 15px 0 15px;
       position: relative;
       margin-bottom: 10px;
+      width: fit-content;
       &::after {
         content: "";
         transition: all 0.2s ease;
