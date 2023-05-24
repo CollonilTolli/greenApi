@@ -1,19 +1,16 @@
-// Styles
-import cn from "classnames";
-import css from "./HomePage.module.scss";
-//Components
-import Header from "../../components/Header/Header";
-import ChatList from "../../components/ChatList/ChatList";
-import ChatMain from "../../components/Chat/ChatMain";
-import { useEffect, useState } from "react";
+//Modules
+import React, { useState } from 'react';
 
-interface props {
-  openedChat: string;
-  setOpenedChat: any;
-}
+// Styles
+import css from './HomePage.module.scss';
+
+//Components
+import Header from '../../components/Header/Header';
+import ChatList from '../../components/ChatList/ChatList';
+import ChatMain from '../../components/Chat/ChatMain';
 
 const HomePage = () => {
-  const [openedChat, setOpenedChat] = useState("");
+  const [openedChat, setOpenedChat] = useState('');
 
   return (
     <>

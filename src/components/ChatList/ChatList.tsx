@@ -1,28 +1,23 @@
 // Modules
-import React, { useEffect, useState } from "react";
-// Styles
-import cn from "classnames";
-import css from "./ChatList.module.scss";
-import { useQuery } from "../../Hooks/useQuery/useQuery";
-import Chat from "./Chat/Chat";
-//Components
+import React, { useEffect, useState } from 'react';
+import { useQuery } from '../../Hooks/useQuery/useQuery';
 
-//Interface
-interface chat {
-  id: string;
-  name: string;
-  type: string;
-}
+// Styles
+import css from './ChatList.module.scss';
+
+// Interface && Methods
+import { chat } from '../../interfaces';
+import { GetContacts } from '../../methods';
+
+// Components
+import List from './List';
+import Input from '../Input/Input';
 
 const ChatList = (props: { openedChat: string; setOpenedChat: any }) => {
-  const GetContacts = {
-    method: "GetContacts",
-  };
-  const resp: any = useQuery(GetContacts);
-  const [contacts, setContacts] = useState([]);
   const [chats, setChats] = useState([]);
-
-  
+  const [contacts, setContacts] = useState([]);
+  const resp: any = useQuery(GetContacts);
+  const emptyArray: any = chats;
 
   useEffect(() => {
     setContacts(resp);
@@ -30,44 +25,28 @@ const ChatList = (props: { openedChat: string; setOpenedChat: any }) => {
 
   const addChat = (e: any) => {
     e.preventDefault();
-
     const newChat: chat = {
-      id: `${e.target.newChat.value}@c.us`,
-      name: `${e.target.newChat.value}`,
-      type: "user",
+      id: `${e.target.Input.value}@c.us`,
+      name: `${e.target.Input.value}`,
+      type: 'user',
     };
-    const arr: any = chats;
-    arr.push(newChat);
+    emptyArray.push(newChat);
     props.setOpenedChat(newChat.id);
-    setChats(arr)
+    setChats(emptyArray);
+    e.target.Input.value = '';
   };
 
   return (
     <div className={css.chatList}>
-      <form className="input" onSubmit={addChat}>
-        <input type="text" name="newChat" placeholder="New Chat" />
-        <button type="submit">Go!</button>
-      </form>
-      <div className={cn(css.chats, css.numbers)}>
-        {chats &&
-          chats.map((el: chat) => (
-            <div key={el.id} onClick={() => props.setOpenedChat(el.id)}>
-              <Chat name={el.name} />
-            </div>
-          ))}
-      </div>
+      <Input placeholder={'New Chat'} func={addChat} />
+      <List
+        openedChat={props.openedChat}
+        setOpenedChat={props.setOpenedChat}
+        chats={chats}
+        className={css.numbers}
+      />
       <div className={css.title}>Contacts</div>
-      <div className={css.chats}>
-        {contacts &&
-          contacts.map((contact: chat) => (
-            <div
-              key={contact.id}
-              onClick={() => props.setOpenedChat(contact.id)}
-            >
-              <Chat name={contact.name} />
-            </div>
-          ))}
-      </div>
+      <List openedChat={props.openedChat} setOpenedChat={props.setOpenedChat} chats={contacts} />
     </div>
   );
 };

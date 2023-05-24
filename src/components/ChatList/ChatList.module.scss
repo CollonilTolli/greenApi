@@ -8,27 +8,21 @@
   height: calc(100vh - 140px);
   display: flex;
   flex-direction: column;
-  .title{
+  .title {
     background-color: var(--color-accent);
     color: var(--color-second-background);
     padding: 5px 10px;
   }
   form {
     display: flex;
-    input,
-    button {
+    input {
       width: 80%;
-      background-color: var(--color-second-background);
-      border: none;
-      border-bottom: 1px solid var(--color-accent);
-      outline: none;
-      font-size: 18px;
-      padding: 5px 10px;
-      color: var(--color-text);
+      border-radius: 0 0 0 15px;
     }
     button {
       width: 20%;
-      border-left: 1px solid var(--color-accent)
+      border-left: 1px solid var(--color-accent);
+      border-radius: 0 0 15px 0;
     }
   }
   .chats {
@@ -38,8 +32,14 @@
     overflow-x: hidden;
     overflow-y: scroll;
   }
-  .numbers{
+  .numbers {
     height: 30%;
-    max-height: 300px; 
+    max-height: 300px;
+  }
+  .active_chat {
+    background-color: var(--color-accent);
+    * {
+      color: var(--color-main-background);
+    }
   }
 }

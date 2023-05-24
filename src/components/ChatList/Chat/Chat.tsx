@@ -1,17 +1,12 @@
-// Modules
-import React from "react";
+import React from 'react';
 // Styles
-import cn from "classnames";
-import css from "./Chat.module.scss";
-//Components
+import css from './Chat.module.scss';
 
-//Interface
-
-const Chat = (chat: {name: string}) => {
+const Chat = (chat: { name: string }) => {
   return (
-  <div className={css.chat}>
-    <p>{chat.name}</p>
-  </div>
+    <div className={css.chat}>
+      <p>{chat.name}</p>
+    </div>
   );
 };
 

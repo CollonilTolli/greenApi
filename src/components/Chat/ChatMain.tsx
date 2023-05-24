@@ -1,48 +1,42 @@
 // Modules
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 // Styles
-import cn from "classnames";
-import css from "./ChatMain.module.scss";
-
-import { useQuery } from "../../Hooks/useQuery/useQuery";
+import cn from 'classnames';
+import css from './ChatMain.module.scss';
+import { useQuery } from '../../Hooks/useQuery/useQuery';
 //Interface
-interface prop {
-  method: string;
-  requestBody?: object;
-}
-interface message {
-  idMessage: string;
-  textMessage: string;
-  type: string;
-}
+import { message } from '../../interfaces';
+import { SendMessage } from '../../methods';
+import Input from '../Input/Input';
+
 const ChatMain = (props: { openedChat: string; setOpenedChat: any }) => {
-  const emp: prop = {
-    method: "GetChatHistory",
+  const [chat, setChat] = useState([]);
+
+  const GetChatHistory = {
+    method: 'GetChatHistory',
     requestBody: {
       chatId: props.openedChat,
       count: 40,
     },
   };
-  const [chat, setChat] = useState([]);
-  const [message, setMessage] = useState(emp);
-  const res = useQuery(emp);
+
+  const res = useQuery(GetChatHistory);
+  const [message, setMessage] = useState(GetChatHistory);
   useQuery(message);
 
   useEffect(() => {
-    setTimeout(() => setChat(res.reverse()), 1000);
+    setTimeout(() => setChat(res.reverse()), 2000);
   }, [props.openedChat, res, message]);
 
-  const sandMessage = (e: any) => {
+  const sendMessage = (e: any) => {
     e.preventDefault();
-    const mess: prop = {
-      method: "SendMessage",
-      requestBody: {
-        chatId: props.openedChat,
-        message: e.target.message.value,
-      },
+    SendMessage.requestBody = {
+      chatId: props.openedChat,
+      message: e.target.Input.value,
     };
+    const mess: any = SendMessage;
     setMessage(mess);
-    e.target.message.value = "";
+    e.target.Input.value = '';
   };
 
   return (
@@ -53,21 +47,14 @@ const ChatMain = (props: { openedChat: string; setOpenedChat: any }) => {
             chat.map((message: message) => (
               <div
                 key={message.idMessage}
-                className={cn(
-                  message.type === "outgoing"
-                    ? css.userMessage
-                    : css.companionMessage
-                )}
+                className={cn(message.type === 'outgoing' ? css.userMessage : css.companionMessage)}
               >
                 {message.textMessage}
               </div>
             ))}
         </div>
       </div>
-      <form className={css.input} onSubmit={sandMessage}>
-        <input name="message" type="text" placeholder="Send Message" />
-        <button type="submit">GO!</button>
-      </form>
+      <Input placeholder={'Send Message'} func={sendMessage} />
     </div>
   );
 };

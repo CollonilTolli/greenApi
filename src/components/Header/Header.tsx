@@ -1,23 +1,31 @@
 // Modules
-import React from "react";
+import React from 'react';
+import Cookies from 'js-cookie';
 // Styles
-import cn from "classnames";
-import css from "./Header.module.scss";
+import css from './Header.module.scss';
 //Components
-import ThemePicker from "../ThemePicker/ThemePicker";
+import ThemePicker from '../ThemePicker/ThemePicker';
 
 const Header = () => {
+  const logOut = () => {
+    Cookies.remove('IdInstance', { path: '/' });
+    Cookies.remove('ApiTokenInstance', { path: '/' });
+    window.location.reload();
+  };
   return (
     <header className={css.header}>
-        <div className={css.chatlist_header}>
-            <img src="" alt="" className={css.avatar_header} />
-            <ThemePicker />
-        </div>
-        <div className={css.singlechat_header}>
-            <div className={css.profile}>
-            <img src="" alt="" className={css.avatar_header} />
-            </div>
-        </div>
+      <div className={css.chatlist_header}>
+        <ThemePicker />
+      </div>
+      <div className={css.singlechat_header}>
+        <button
+          onClick={() => {
+            logOut();
+          }}
+        >
+          Log Out
+        </button>
+      </div>
     </header>
   );
 };
