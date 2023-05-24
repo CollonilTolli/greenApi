@@ -29,7 +29,7 @@ const ChatMain = (props: { openedChat: string; setOpenedChat: any }) => {
   useQuery(message);
 
   useEffect(() => {
-    res && setChat(res.reverse());
+    setTimeout(() => setChat(res.reverse()), 1000);
   }, [props.openedChat, res, message]);
 
   const sandMessage = (e: any) => {

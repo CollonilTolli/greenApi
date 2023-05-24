@@ -37,7 +37,7 @@ export const useQuery = (prop: { method: string; requestBody?: object }) => {
       }
     }
     else return
-  }, [prop, apiUrl, apiState, apiStateOld]);
+  }, [prop, apiUrl, apiStateOld]);
 
   return apiState;
 };
